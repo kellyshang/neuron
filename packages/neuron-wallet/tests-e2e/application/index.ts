@@ -222,9 +222,9 @@ export default class Application {
 
   // goto Setting page from menu according to OS platform
   async gotoSettingPageFromMenu() {
-    if(this.osPlatform.includes("darwin")) {
+    if (this.osPlatform.includes("darwin")) {
       await this.clickMenu(['Electron', 'Preferences...'])
-    } else if(this.osPlatform.includes("win32")) {
+    } else {
       this.wait(300)
       await this.clickMenu(['Help', 'Settings'])
     }
