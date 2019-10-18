@@ -6,7 +6,7 @@ import zh from 'locales/zh.json'
 import en from 'locales/en.json'
 
 const locale = getLocale()
-const lng = ['zh', 'zh-CN'].includes(locale) ? 'zh' : 'en'
+const lng = ['zh', 'zh-CN'].includes(locale) ? 'en' : 'zh'
 
 i18n.use(initReactI18next).init({
   resources: {

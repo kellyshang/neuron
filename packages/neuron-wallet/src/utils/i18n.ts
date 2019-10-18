@@ -14,7 +14,7 @@ i18n.init({
 })
 
 export const changeLanguage = (lng = 'en') => {
-  const language = ['zh', 'zh-CN'].includes(lng) ? 'zh' : 'en'
+  const language = ['zh', 'zh-CN'].includes(lng) ? 'en' : 'zh'
   i18n.changeLanguage(language)
 }
 

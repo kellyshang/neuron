@@ -11,6 +11,7 @@ const log = debuglog(__filename)
 export default class Application {
   spectron: SpectronApplication
   errorOccurred: boolean = false
+  osPlatform = this.getOSplatform()
 
   constructor() {
     let electronPath = path.join(__dirname, '../..', 'node_modules', '.bin', 'electron')
@@ -210,5 +211,21 @@ export default class Application {
       return `${element} ${args}`
     }, text)
     log(`setValue - ${selector} = ${result}`);
+  }
+
+  getOSplatform():string {
+    let os = require('os');
+    let platform = os.platform();
+    return platform;
+  }
+
+  // goto Setting page according to OS platform
+  async gotoSettingPage() {
+    console.log(`current os platform is ${this.osPlatform}`)
+    if(this.osPlatform.includes("darwin")) {
+      await this.clickMenu(['Electron', 'Preferences...'])
+    } else if(this.osPlatform.includes("win32")) {
+      await this.clickMenu(['Help', 'Settings'])
+    }
   }
 }

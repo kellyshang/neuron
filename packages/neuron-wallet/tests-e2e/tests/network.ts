@@ -9,7 +9,12 @@ export default (app: Application) => {
     const newNodeRpcUrl = 'http://localhost:8114'
 
     // Go to setting page
-    await app.clickMenu(['Electron', 'Preferences...'])
+    // if(app.osPlatform.includes("darwin")) {
+    //   await app.clickMenu(['Electron', 'Preferences...'])
+    // } else if(app.osPlatform.includes("win32")) {
+    //   await app.clickMenu(['Help', 'Settings'])
+    // }  
+    await app.gotoSettingPage()
     await app.waitUntilLoaded()
 
     // Switch to network setting
@@ -119,7 +124,9 @@ export default (app: Application) => {
     const { client } = app.spectron
 
     // Go to setting page
-    await app.clickMenu(['Electron', 'Preferences...'])
+    // // await app.clickMenu(['Electron', 'Preferences...'])
+    // await app.clickMenu(['Help', 'Settings'])
+    await app.gotoSettingPage()
     await app.waitUntilLoaded()
 
     // Switch to network setting

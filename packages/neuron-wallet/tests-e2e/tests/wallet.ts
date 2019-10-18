@@ -1,5 +1,6 @@
 import Application from '../application'
 import { createWallet, importWallet } from '../operations'
+import { sleep } from '../application/utils'
 
 // Start: Guide page
 // End: Overview page
@@ -7,6 +8,7 @@ export default (app: Application) => {
   app.test('create wallet', async () => {
     const { client } = app.spectron
     await app.waitUntilLoaded()
+    console.info(`---------create wallet ${new Date().toLocaleTimeString()}`)
 
     // Click create wallet
     const createWalletButton = await app.getElementByTagName('button', 'Create a Wallet')
@@ -21,6 +23,7 @@ export default (app: Application) => {
   app.test('import wallet', async () => {
     const { client } = app.spectron
     await client.waitUntilWindowLoaded()
+    console.info(`-------import wallet ${new Date().toLocaleTimeString()}`)
 
     // Go to setting page
     const networkElement = await app.element('//FOOTER/DIV[1]/DIV[2]')
@@ -50,9 +53,11 @@ export default (app: Application) => {
   app.test('switch to first wallet', async () => {
     const { client } = app.spectron
     await client.waitUntilWindowLoaded()
+    console.info(`---------switch to first wallet ${new Date().toLocaleTimeString()}`)
 
     // Go to setting page
-    await app.clickMenu(['Electron', 'Preferences...'])
+    // await app.clickMenu(['Electron', 'Preferences...'])
+    await app.clickMenu(['Help', 'Settings'])
     await app.waitUntilLoaded()
 
     // Switch to wallet setting
@@ -78,6 +83,7 @@ export default (app: Application) => {
   app.test('delete wallet from menu', async () => {
     const { client } = app.spectron
     await client.waitUntilWindowLoaded()
+    console.info(`---------delete wallet from menu ${new Date().toLocaleTimeString()}`)
 
     // Get current wallet name
     const walletNameElement = await app.element('//MAIN/DIV/H1')
@@ -103,14 +109,18 @@ export default (app: Application) => {
     expect(newWalletNameElement.value).not.toBeNull()
     const newWalletName = await client.elementIdText(newWalletNameElement.value.ELEMENT)
     expect(newWalletName.value).not.toBe(walletName.value)
+
   })
 
   app.test('edit wallet', async () => {
+    sleep(300)
     const { client } = app.spectron
     await client.waitUntilWindowLoaded()
+    console.info(`----edit wallet Go to setting page ${new Date().toLocaleTimeString()}`)
 
     // Go to setting page
-    await app.clickMenu(['Electron', 'Preferences...'])
+    // await app.clickMenu(['Electron', 'Preferences...'])
+    await app.clickMenu(['Help', 'Settings'])
     await app.waitUntilLoaded()
 
     // Switch to wallet setting
@@ -153,6 +163,7 @@ export default (app: Application) => {
 
   describe('Test field boundary', () => {
     app.test('Whitespace is disallowed in password when creating wallets', async () => {
+      console.info(`---------Whitespace is disallowed when creating wallets ${new Date().toLocaleTimeString()}`)
       const mnemonicText = 'refuse ecology globe virus demand gentle couch scrub bulk project chronic dog'
       const password = ' Aa11 1111 111 '
       const { client } = app.spectron
@@ -170,6 +181,7 @@ export default (app: Application) => {
     })
 
     app.test('Whitespace is disallowed in password when requesting the password', async () => {
+      console.info(`---------Whitespace is disallowed when requesting the password ${new Date().toLocaleTimeString()}`)
       const password = ' Aa22 222 222 '
       const dialogPasswordSelector = 'div[role=dialog] input[type=password]'
       const { client } = app.spectron
